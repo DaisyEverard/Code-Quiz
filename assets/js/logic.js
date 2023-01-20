@@ -164,6 +164,7 @@ let interval = setInterval(intervalFunc, 1000);
             } else {
                 feedbackBox.textContent = "";
                 feedbackBox.style.backgroundColor = "#ff9c9c"
+                timeDisplay.textContent -= 10; 
             }
         
             feedbackBox.textContent += feedback; 
