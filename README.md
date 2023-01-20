@@ -31,11 +31,7 @@ The quiz should end when the timer reaches 0. -->
 
 The quiz should end when all questions are answered 
 
-  * When the game ends, it should display their score and give the user the ability to save their initials and their score
-  
-  pause timer when feedback shows. timer in different js to questions. 
-
-  Add score count and object with {user: "name", score: num}
+  only allow one submittion of highscore
 
 ## Mock-Up
 

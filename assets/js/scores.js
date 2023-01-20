@@ -15,23 +15,44 @@
 // New Variables
 const clearHS = document.querySelector("#clear"); 
 const HSDisplay = document.querySelector("#highscores"); 
-const localScore = localStorage.getItem("quizScore"); 
+let localScore1 = localStorage.getItem("quizScore1"); 
+let localScore2 = localStorage.getItem("quizScore2"); 
+let localScore3 = localStorage.getItem("quizScore3"); 
 
 renderScores = () => {
-    if (localScore === null) {
+    if (!localScore1 && !localScore2 && !localScore3) {
+        console.log("all null")
         HSDisplay.textContent = "No scores found"
     } else {
-        HSDisplay.innerHTML = `<p>User: ${JSON.parse(localScore).user}</p>
-    <p>Score: ${JSON.parse(localScore).score}`
-    }
+        console.log("else" + localScore1 + localScore2 + localScore3)
+        if (localScore1) {
+            HSDisplay.innerHTML = `<h4>1st Place</h4>
+            <p>User: ${JSON.parse(localScore1).user}</p>
+        <p>Score: ${JSON.parse(localScore1).score}</p>`
+        }; 
+        if (localScore2) {
+            HSDisplay.innerHTML += `<br>
+            <h4>2nd Place</h4>
+                <p>User: ${JSON.parse(localScore2).user}</p>
+            <p>Score: ${JSON.parse(localScore2).score}</p>` 
+        }; 
+        if (localScore3) {
+            HSDisplay.innerHTML += `<br>
+            <h4>1st Place</h4>
+                <p>User: ${JSON.parse(localScore3).user}</p>
+            <p>Score: ${JSON.parse(localScore3).score}</p>`
+        }
+      }
 }
-
 renderScores(); 
 
 clearHS.addEventListener("click", (event) => {
-    localStorage.clear("quizScore"); 
-    console.log("clear clicked")
-    
-    renderScores(); 
+    // const localScore1 = localStorage.getItem("quizScore1");
+    localStorage.setItem("quizScore1", ""); 
+    localStorage.setItem("quizScore2", ""); 
+    localStorage.setItem("quizScore3", ""); 
+    localScore1 = "";
+    localScore2 = "";
+    localScore3 = ""; 
+  renderScores(); 
 })
-

@@ -6,7 +6,10 @@ const timeDisplay = document.querySelector("#time")
 const finalScoreDisplay = document.querySelector("#final-score")
 const userInitialsInput = document.querySelector("#initials")
 const submitScore = document.querySelector("#submit")
-
+const confirmSubmit = document.querySelector("#confirm-submit")
+const localScore1 = localStorage.getItem("quizScore1"); 
+const localScore2 = localStorage.getItem("quizScore2"); 
+const localScore3 = localStorage.getItem("quizScore3"); 
 
 // QUESTIONS
 // SECTION
@@ -14,6 +17,7 @@ const questionTitle = document.querySelector("#question-title");
 const choices = document.querySelector("#choices"); 
 const feedbackBox = document.querySelector("#feedback"); 
 let feedback; 
+let score;  
 
 // START OF QUESTIONS
 // Question 1
@@ -130,24 +134,24 @@ const intervalFunc = () => {
     if(timeDisplay.textContent > 0) {
     timeDisplay.textContent --; 
 } else {
-    clearInterval(intervalFunc); 
     questionScreen.setAttribute("class", "hide");
     feedbackBox.setAttribute("class", "hide"); 
     endScreen.removeAttribute("class", "hide") ; 
     finalScoreDisplay.textContent = score;
+    clearInterval(intervalFunc); 
 }}
 
 // START BUTTON
 startBtn.addEventListener("click", () => {
     // reset score, choose first question
-    let score = 0;  
+    score = 0;  
     newQuestion(); 
     // hide start screen, show questions
     startScreen.setAttribute("class", "hide"); 
     questionScreen.removeAttribute("class", "hide"); 
     
     // Timer
-    timeDisplay.textContent = 60; 
+    timeDisplay.textContent = 1; 
 let interval = setInterval(intervalFunc, 1000); 
 
     // When an answer is chosen
@@ -183,13 +187,32 @@ let interval = setInterval(intervalFunc, 1000);
 
 // store score and username
 submitScore.addEventListener("click", (event) => {
-    let userName = userInitialsInput.value;
+       let userName = userInitialsInput.value;
     let userObj = {
         "user": userName, 
         "score": score 
     }
-    localStorage.setItem("quizScore", JSON.stringify(userObj)); 
-    userInitialsInput.value = ""; 
-})
+
+    if(localScore1) {
+        if (userObj.score >= JSON.parse(localScore1).score) {
+            localStorage.setItem("quizScore2", localScore1); 
+            localStorage.setItem("quizScore3", localScore2); 
+            localStorage.setItem("quizScore1", JSON.stringify(userObj)); 
+            confirmSubmit.textContent = "Score Submitted. Top score!!!"
+        } else if (!localScore2 || userObj.score >= JSON.parse(localScore2).score) {
+            localStorage.setItem("quizScore3", localScore2); 
+            localStorage.setItem("quizScore2", JSON.stringify(userObj)); 
+            confirmSubmit.textContent = "Score Submitted. 2nd top score!!"
+        } else if (!localScore3 || userObj.score >= JSON.parse(localScore3).score) {
+            localStorage.setItem("quizScore3", JSON.stringify(userObj)); 
+            confirmSubmit.textContent = "Score Submitted! 3rd top score!!"
+        } else {
+            confirmSubmit.textContent = "Sorry, You're not in the top 3"
+        }} else {
+            localStorage.setItem("quizScore1", JSON.stringify(userObj)); 
+            confirmSubmit.textContent = "Score Submitted. Top score!!!"
+        }
+    }
+)
 
 
