@@ -86,3 +86,13 @@ li:nth-child(odd) {
   top: 10px;
   right: 10px;
 }
+
+.red-text {
+  color: red;
+}
+.green-text {
+  color: green;
+}
+.blue-text {
+  color: blue;
+}
