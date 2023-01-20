@@ -31,6 +31,10 @@ Create a code quiz that contains the following requirements:
 
   * When the game ends, it should display their score and give the user the ability to save their initials and their score
   
+  pause timer when feedback shows. timer in different js to questions. 
+
+  Add score count and object with {user: "name", score: num}
+
 ## Mock-Up
 
 The following animation demonstrates the application functionality:
