@@ -117,6 +117,13 @@ let Q10 = () => {
 let questionArray = [Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10]
 
 // FUNCTIONS
+
+// Show endscreen 
+let endScreenShow = () => {
+    questionScreen.setAttribute("class", "hide");
+    feedbackBox.setAttribute("class", "hide"); 
+    endScreen.removeAttribute("class", "hide") ; 
+}
 // choose new question and add to display
 let newQuestion = () => {
     if (questionArray.length > 0) {
@@ -124,7 +131,7 @@ let newQuestion = () => {
     questionArray[index]();
     questionArray.splice(index, 1)
     } else {
-
+       endScreenShow(); 
     }
 ; 
 } 
@@ -134,10 +141,8 @@ const intervalFunc = () => {
     if(timeDisplay.textContent > 0) {
     timeDisplay.textContent --; 
 } else {
-    questionScreen.setAttribute("class", "hide");
-    feedbackBox.setAttribute("class", "hide"); 
-    endScreen.removeAttribute("class", "hide") ; 
     finalScoreDisplay.textContent = score;
+    endScreenShow(); 
     clearInterval(intervalFunc); 
 }}
 
@@ -150,36 +155,49 @@ startBtn.addEventListener("click", () => {
     startScreen.setAttribute("class", "hide"); 
     questionScreen.removeAttribute("class", "hide"); 
     
-    // Timer
-    timeDisplay.textContent = 1; 
+    // Timer initial start
+    timeDisplay.textContent = 9; 
 let interval = setInterval(intervalFunc, 1000); 
 
     // When an answer is chosen
     let clickCount = 0;
     choices.addEventListener("click", event => {
+        // only allows you to answer once
         if(clickCount !== 0) {
             return; 
         } else {
             clickCount++; 
+            // right answer
             if (event.target.getAttribute("class") === "correct") {
                 feedbackBox.textContent = "CORRECT!";
                 feedbackBox.style.backgroundColor = "#8fd18f"
                 score ++; 
             } else {
-                feedbackBox.textContent = "";
-                feedbackBox.style.backgroundColor = "#ff9c9c"
+                // stop timer going below 0
+                 if (timeDisplay.textContent > 10) {
                 timeDisplay.textContent -= 10; 
+            } else {
+                timeDisplay.textContent = 0; 
             }
+            feedbackBox.textContent = "";
+            feedbackBox.style.backgroundColor = "#ff9c9c"
+        }
         
+        // add feedback text, show feedbackbox, pause timer
             feedbackBox.textContent += feedback; 
             feedbackBox.removeAttribute("class", "hide"); 
             clearInterval(interval); 
 
+            // fiveSecond pause before next Question & restart timer
             let fiveSeconds = setTimeout(() => {
-                feedbackBox.setAttribute("class", "hide");
+                if (timeDisplay.textContent > 0) {feedbackBox.setAttribute("class", "hide");
                 newQuestion();
                 clickCount = 0;
-                interval = setInterval(intervalFunc, 1000);  
+                interval = setInterval(intervalFunc, 1000);
+              } else {
+                endScreenShow(); 
+                finalScoreDisplay.textContent = score;
+              }
             }, 5000)  
         }     
     })
@@ -192,26 +210,30 @@ submitScore.addEventListener("click", (event) => {
         "user": userName, 
         "score": score 
     }
-
+    // catch 'null' when no scores recorded yet
     if(localScore1) {
         if (userObj.score >= JSON.parse(localScore1).score) {
             localStorage.setItem("quizScore2", localScore1); 
             localStorage.setItem("quizScore3", localScore2); 
             localStorage.setItem("quizScore1", JSON.stringify(userObj)); 
             confirmSubmit.textContent = "Score Submitted. Top score!!!"
+            // if no second score or higher
         } else if (!localScore2 || userObj.score >= JSON.parse(localScore2).score) {
             localStorage.setItem("quizScore3", localScore2); 
             localStorage.setItem("quizScore2", JSON.stringify(userObj)); 
             confirmSubmit.textContent = "Score Submitted. 2nd top score!!"
+            // if no 3rd score or higher
         } else if (!localScore3 || userObj.score >= JSON.parse(localScore3).score) {
             localStorage.setItem("quizScore3", JSON.stringify(userObj)); 
             confirmSubmit.textContent = "Score Submitted! 3rd top score!!"
         } else {
             confirmSubmit.textContent = "Sorry, You're not in the top 3"
         }} else {
+            // set first score
             localStorage.setItem("quizScore1", JSON.stringify(userObj)); 
             confirmSubmit.textContent = "Score Submitted. Top score!!!"
         }
+        confirmSubmit.innerHTML += "<p>To change your name, just type it and submit again!</p>"
     }
 )
 
