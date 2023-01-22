@@ -6,6 +6,16 @@
 
 ## Description
 
+This is a quiz with 10 questions about coding. 
+Features:
+ - If all 10 questions are answered, the quiz ends (Although this is not intended to happen within the time allowed)
+ - If time runs out, the quiz stops
+ - Displays final score on screen
+ - stores the top 3 scores locally (if two scores are equal, the most recent takes precendent)
+ - Highscores can be viewed and reset with 'View Highscores' link
+ - Name can be changed until you leave the submit screen
+ - 'play again' function
+
 ## Issues and solutions
 
 1. Pausing timer

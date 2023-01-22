@@ -24,7 +24,7 @@ let score;
 // START OF QUESTIONS
 // Question 1
 let Q1 = () => {
-   questionTitle.textContent = "Which of methods doesn't cause side effects?" 
+   questionTitle.textContent = "Which of these methods doesn't cause side effects?" 
    choices.innerHTML = "<button>1. push</button><button class=\"correct\">2. slice</button><button>3. splice</button><button>4. pop</button>"
    feedback = "Slice. Side Effects are changes to an element. Slice doesn't mutate the array it's applied to, all the others do"
 }
@@ -43,10 +43,10 @@ let Q2 = () => {
 // Question 3
 let Q3 = () => {
     questionTitle.textContent = "if (const addMe = \"here\") Which of these will print \"Put constant here please\"" 
-    choices.innerHTML = `<button class=\"correct\">1. console.log(\`Put constant \${addMe} here\`)</button>
-    <button>2. console.textContent = \`Put constant \${addMe} here\`</button>
-    <button>3. console.log(\"Put constant \${addMe} here\")</button>
-    <button>4. console.textcontent = \"Put constant \${addMe} here\"</button>`;
+    choices.innerHTML = `<button class=\"correct\">1. console.log(\`Put constant \${addMe} please\`)</button>
+    <button>2. console.textContent = \`Put constant \${addMe} please\`</button>
+    <button>3. console.log(\"Put constant \${addMe} please\")</button>
+    <button>4. console.textcontent = \"Put constant \${addMe} please\"</button>`;
     feedback = "1. To use dollar sign notation, you must use backsticks (`). .textContent can't be used on the console"
  }
 // Question 4
@@ -80,8 +80,8 @@ let Q6 = () => {
 let Q7 = () => {
     questionTitle.textContent = "Which of these element types is NOT considered semantic HTML?" 
     choices.innerHTML = `<button>1. header</button>
-    <button>2. title</button>
-    <button class=\"correct\">3. section</button>
+    <button class=\"correct\">2. title</button>
+    <button>3. section</button>
     <button>4. figcaption</button>`;
     feedback = "The title is an element in the head, it doesn't tell you about what content on the page is for"
  } 
@@ -107,7 +107,7 @@ let Q9 = () => {
  } 
 // Question 10 
 let Q10 = () => {
-    questionTitle.textContent = "From inside to outside, which of these best represents to box-model" 
+    questionTitle.textContent = "Which of these best represents to box-model (from inside to outside)" 
     choices.innerHTML = `<button>1. Content -> Padding -> Margin -> Border</button>
     <button>2. Content -> Margin -> Border -> Padding</button>
     <button>3. Content -> Margin -> Padding -> Border</button>
@@ -133,7 +133,8 @@ let newQuestion = () => {
     questionArray[index]();
     questionArray.splice(index, 1)
     } else {
-       endScreenShow(); 
+      timeDisplay.textContent = 0;
+       endScreenShow();  
     }
 ; 
 } 
@@ -159,7 +160,7 @@ let game = () => {
         questionScreen.removeAttribute("class", "hide"); 
         
         // Timer initial start
-        timeDisplay.textContent = 9; 
+        timeDisplay.textContent = 60; 
     let interval = setInterval(intervalFunc, 1000); 
     
         // When an answer is chosen

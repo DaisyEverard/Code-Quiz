@@ -31,8 +31,6 @@ The quiz should end when the timer reaches 0. -->
 
 The quiz should end when all questions are answered
 
-  sound effects? 
-
   add next question feature, instead of fiveSecond
 
 ## Mock-Up
