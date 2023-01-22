@@ -38,7 +38,7 @@ renderScores = () => {
         }; 
         if (localScore3) {
             HSDisplay.innerHTML += `<br>
-            <h4>1st Place</h4>
+            <h4>3rd Place</h4>
                 <p>User: ${JSON.parse(localScore3).user}</p>
             <p>Score: ${JSON.parse(localScore3).score}</p>`
         }
