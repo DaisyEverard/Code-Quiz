@@ -127,30 +127,36 @@ let endScreenShow = () => {
     feedbackBox.setAttribute("class", "hide"); 
     endScreen.removeAttribute("class", "hide") ; 
     nextQuestion.setAttribute("class", "hide");
+    console.log("end sreen Show")
 }
+
 // choose new question and add to display
 let newQuestion = () => {
     if (questionArray.length > 0) {
         let index = Math.floor(Math.random() * questionArray.length); 
     questionArray[index]();
     questionArray.splice(index, 1)
+    console.log("newQuestion > 0")
     } else {
       timeDisplay.textContent = 0;
        endScreenShow();  
+       console.log("nextQuestion < 0")
     }
 ; 
 } 
 
 // reusable function for timer
+let interval; 
 const intervalFunc = () => {
     if(timeDisplay.textContent > 0) {
     timeDisplay.textContent --; 
+    console.log("interval > 0")
 } else {
     finalScoreDisplay.textContent = score;
     endScreenShow(); 
-    clearInterval(intervalFunc); 
+    clearInterval(interval); 
+    console.log("interval < 0")
 }}
-
 // Game logic 
 let game = () => {
         // reset score, choose first question
@@ -163,9 +169,9 @@ let game = () => {
         questionScreen.removeAttribute("class", "hide"); 
         
         // Timer initial start
-        timeDisplay.textContent = 60; 
-    let interval = setInterval(intervalFunc, 1000); 
-    
+        timeDisplay.textContent = 15;  
+        interval = setInterval(intervalFunc, 1000);
+
         // When an answer is chosen
         let clickCount = 0;
         choices.addEventListener("click", event => {
@@ -182,10 +188,12 @@ let game = () => {
                 } else {
                     // stop timer going below 0
                      if (timeDisplay.textContent > 10) {
+                        console.log("choices > 0")
                     timeDisplay.textContent -= 10; 
                 } else {
                     timeDisplay.textContent = 0; 
                     nextQuestion.textContent = "End"; 
+                    console.log("choices < 0")
                 }
                 feedbackBox.textContent = "";
                 feedbackBox.style.backgroundColor = "#ff9c9c"
@@ -195,7 +203,8 @@ let game = () => {
                 feedbackBox.textContent += feedback; 
                 feedbackBox.removeAttribute("class", "hide"); 
                 nextQuestion.removeAttribute("class", "hide")
-                clearInterval(interval); 
+                clearInterval(interval);
+                console.log("clear interval"); 
             }     
         })
 
@@ -205,10 +214,12 @@ let game = () => {
                 nextQuestion.setAttribute("class", "hide");
                 newQuestion(); 
                 clickCount = 0; 
-                interval = setInterval(intervalFunc, 1000);
+                interval = setInterval(intervalFunc, 1000, interval);
+                console.log("nextQuestion > 0, set interval")
             } else {
                 endScreenShow();
                 finalScoreDisplay.textContent = score;
+                console.log("nextQuestion < 0")
             }
         })
     }
@@ -221,6 +232,8 @@ playAgain.addEventListener("click", () => {
     localScore2 = localStorage.getItem("quizScore2"); 
     localScore3 = localStorage.getItem("quizScore3"); 
     confirmSubmit.textContent = ""; 
+    nextQuestion.textContent = "Next Question"; 
+    questionArray = [Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10]; 
     game();}); 
 
 // store score and username
