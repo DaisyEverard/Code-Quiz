@@ -3,6 +3,7 @@ const startScreen = document.querySelector("#start-screen")
 const questionScreen = document.querySelector("#questions")
 const endScreen = document.querySelector("#end-screen")
 const timeDisplay = document.querySelector("#time")
+const nextQuestion = document.querySelector("#next-question")
 const finalScoreDisplay = document.querySelector("#final-score")
 const userInitialsInput = document.querySelector("#initials")
 const submitScore = document.querySelector("#submit")
@@ -125,6 +126,7 @@ let endScreenShow = () => {
     questionScreen.setAttribute("class", "hide");
     feedbackBox.setAttribute("class", "hide"); 
     endScreen.removeAttribute("class", "hide") ; 
+    nextQuestion.setAttribute("class", "hide");
 }
 // choose new question and add to display
 let newQuestion = () => {
@@ -157,10 +159,11 @@ let game = () => {
         // hide other screens, show questions
         startScreen.setAttribute("class", "hide"); 
         endScreen.setAttribute("class", "hide");
+        nextQuestion.setAttribute("class", "hide")
         questionScreen.removeAttribute("class", "hide"); 
         
         // Timer initial start
-        timeDisplay.textContent = 60; 
+        timeDisplay.textContent = 1; 
     let interval = setInterval(intervalFunc, 1000); 
     
         // When an answer is chosen
@@ -190,20 +193,22 @@ let game = () => {
             // add feedback text, show feedbackbox, pause timer
                 feedbackBox.textContent += feedback; 
                 feedbackBox.removeAttribute("class", "hide"); 
+                nextQuestion.removeAttribute("class", "hide")
                 clearInterval(interval); 
-    
-                // fiveSecond pause before next Question & restart timer
-                let fiveSeconds = setTimeout(() => {
-                    if (timeDisplay.textContent > 0) {feedbackBox.setAttribute("class", "hide");
-                    newQuestion();
-                    clickCount = 0;
-                    interval = setInterval(intervalFunc, 1000);
-                  } else {
-                    endScreenShow(); 
-                    finalScoreDisplay.textContent = score;
-                  }
-                }, 5000)  
             }     
+        })
+
+        nextQuestion.addEventListener("click", () => {
+            if (timeDisplay.textContent > 0) {
+                feedbackBox.setAttribute("class", "hide");
+                nextQuestion.setAttribute("class", "hide");
+                newQuestion(); 
+                clickCount = 0; 
+                interval = setInterval(intervalFunc, 1000);
+            } else {
+                endScreenShow();
+                finalScoreDisplay.textContent = score;
+            }
         })
     }
 
