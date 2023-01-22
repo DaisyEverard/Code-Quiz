@@ -8,7 +8,6 @@ const finalScoreDisplay = document.querySelector("#final-score")
 const userInitialsInput = document.querySelector("#initials")
 const submitScore = document.querySelector("#submit")
 const confirmSubmit = document.querySelector("#confirm-submit")
-const playAgain = document.querySelector("#play-again")
 
 let localScore1 = localStorage.getItem("quizScore1"); 
 let localScore2 = localStorage.getItem("quizScore2"); 
@@ -127,7 +126,6 @@ let endScreenShow = () => {
     feedbackBox.setAttribute("class", "hide"); 
     endScreen.removeAttribute("class", "hide") ; 
     nextQuestion.setAttribute("class", "hide");
-    console.log("end sreen Show")
 }
 
 // choose new question and add to display
@@ -136,11 +134,9 @@ let newQuestion = () => {
         let index = Math.floor(Math.random() * questionArray.length); 
     questionArray[index]();
     questionArray.splice(index, 1)
-    console.log("newQuestion > 0")
     } else {
       timeDisplay.textContent = 0;
        endScreenShow();  
-       console.log("nextQuestion < 0")
     }
 ; 
 } 
@@ -150,12 +146,10 @@ let interval;
 const intervalFunc = () => {
     if(timeDisplay.textContent > 0) {
     timeDisplay.textContent --; 
-    console.log("interval > 0")
 } else {
     finalScoreDisplay.textContent = score;
     endScreenShow(); 
     clearInterval(interval); 
-    console.log("interval < 0")
 }}
 // Game logic 
 let game = () => {
@@ -188,12 +182,10 @@ let game = () => {
                 } else {
                     // stop timer going below 0
                      if (timeDisplay.textContent > 10) {
-                        console.log("choices > 0")
                     timeDisplay.textContent -= 10; 
                 } else {
                     timeDisplay.textContent = 0; 
                     nextQuestion.textContent = "End"; 
-                    console.log("choices < 0")
                 }
                 feedbackBox.textContent = "";
                 feedbackBox.style.backgroundColor = "#ff9c9c"
@@ -204,7 +196,6 @@ let game = () => {
                 feedbackBox.removeAttribute("class", "hide"); 
                 nextQuestion.removeAttribute("class", "hide")
                 clearInterval(interval);
-                console.log("clear interval"); 
             }     
         })
 
@@ -215,26 +206,15 @@ let game = () => {
                 newQuestion(); 
                 clickCount = 0; 
                 interval = setInterval(intervalFunc, 1000, interval);
-                console.log("nextQuestion > 0, set interval")
             } else {
                 endScreenShow();
                 finalScoreDisplay.textContent = score;
-                console.log("nextQuestion < 0")
             }
         })
     }
 
 // START BUTTON, 
 startBtn.addEventListener("click", game); 
-// NEW GAME (endscreen)
-playAgain.addEventListener("click", () => {
-    localScore1 = localStorage.getItem("quizScore1"); 
-    localScore2 = localStorage.getItem("quizScore2"); 
-    localScore3 = localStorage.getItem("quizScore3"); 
-    confirmSubmit.textContent = ""; 
-    nextQuestion.textContent = "Next Question"; 
-    questionArray = [Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10]; 
-    game();}); 
 
 // store score and username
 submitScore.addEventListener("click", (event) => {

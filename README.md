@@ -4,8 +4,6 @@
 
 ## Link to site
 
-play again not working after next question changes
-
 https://daisyeverard.github.io/Code-Quiz/index.html
 
 ## Description
@@ -18,9 +16,9 @@ Features:
  - stores the top 3 scores locally (if two scores are equal, the most recent takes precendent)
  - Highscores can be viewed and reset with 'View Highscores' link
  - Name can be changed until you leave the submit screen
- - 'play again' function
  - When answer submitted: Timer pauses, feedback and next question button appear.
  - It wrong answer causes time to run out, 'next question' becomes 'end'
+ - 'Play Again' button which refreshes the page. 
 
 ## Issues and solutions
 
