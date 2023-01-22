@@ -2,6 +2,13 @@
 
 ## Preview
 
+<p align="center">
+  <img src=".\assets\images\question preview.png" width="500" alt="question answered correctly">
+</p>
+<p align="center">
+  <img src=".\assets\images\highscore preview.png" width="500" alt="display of highscores">
+</p>
+
 ## Link to site
 
 https://daisyeverard.github.io/Code-Quiz/index.html
