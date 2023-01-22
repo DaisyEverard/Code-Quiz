@@ -163,7 +163,7 @@ let game = () => {
         questionScreen.removeAttribute("class", "hide"); 
         
         // Timer initial start
-        timeDisplay.textContent = 1; 
+        timeDisplay.textContent = 60; 
     let interval = setInterval(intervalFunc, 1000); 
     
         // When an answer is chosen
@@ -185,6 +185,7 @@ let game = () => {
                     timeDisplay.textContent -= 10; 
                 } else {
                     timeDisplay.textContent = 0; 
+                    nextQuestion.textContent = "End"; 
                 }
                 feedbackBox.textContent = "";
                 feedbackBox.style.backgroundColor = "#ff9c9c"

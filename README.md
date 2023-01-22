@@ -15,6 +15,8 @@ Features:
  - Highscores can be viewed and reset with 'View Highscores' link
  - Name can be changed until you leave the submit screen
  - 'play again' function
+ - When answer submitted: Timer pauses, feedback and next question button appear.
+ - It wrong answer causes time to run out, 'next question' becomes 'end'
 
 ## Issues and solutions
 
