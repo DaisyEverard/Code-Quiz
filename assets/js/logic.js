@@ -7,9 +7,11 @@ const finalScoreDisplay = document.querySelector("#final-score")
 const userInitialsInput = document.querySelector("#initials")
 const submitScore = document.querySelector("#submit")
 const confirmSubmit = document.querySelector("#confirm-submit")
-const localScore1 = localStorage.getItem("quizScore1"); 
-const localScore2 = localStorage.getItem("quizScore2"); 
-const localScore3 = localStorage.getItem("quizScore3"); 
+const playAgain = document.querySelector("#play-again")
+
+let localScore1 = localStorage.getItem("quizScore1"); 
+let localScore2 = localStorage.getItem("quizScore2"); 
+let localScore3 = localStorage.getItem("quizScore3"); 
 
 // QUESTIONS
 // SECTION
@@ -146,62 +148,73 @@ const intervalFunc = () => {
     clearInterval(intervalFunc); 
 }}
 
-// START BUTTON
-startBtn.addEventListener("click", () => {
-    // reset score, choose first question
-    score = 0;  
-    newQuestion(); 
-    // hide start screen, show questions
-    startScreen.setAttribute("class", "hide"); 
-    questionScreen.removeAttribute("class", "hide"); 
-    
-    // Timer initial start
-    timeDisplay.textContent = 9; 
-let interval = setInterval(intervalFunc, 1000); 
-
-    // When an answer is chosen
-    let clickCount = 0;
-    choices.addEventListener("click", event => {
-        // only allows you to answer once
-        if(clickCount !== 0) {
-            return; 
-        } else {
-            clickCount++; 
-            // right answer
-            if (event.target.getAttribute("class") === "correct") {
-                feedbackBox.textContent = "CORRECT!";
-                feedbackBox.style.backgroundColor = "#8fd18f"
-                score ++; 
-            } else {
-                // stop timer going below 0
-                 if (timeDisplay.textContent > 10) {
-                timeDisplay.textContent -= 10; 
-            } else {
-                timeDisplay.textContent = 0; 
-            }
-            feedbackBox.textContent = "";
-            feedbackBox.style.backgroundColor = "#ff9c9c"
-        }
+// Game logic 
+let game = () => {
+        // reset score, choose first question
+        score = 0;  
+        newQuestion(); 
+        // hide other screens, show questions
+        startScreen.setAttribute("class", "hide"); 
+        endScreen.setAttribute("class", "hide");
+        questionScreen.removeAttribute("class", "hide"); 
         
-        // add feedback text, show feedbackbox, pause timer
-            feedbackBox.textContent += feedback; 
-            feedbackBox.removeAttribute("class", "hide"); 
-            clearInterval(interval); 
+        // Timer initial start
+        timeDisplay.textContent = 9; 
+    let interval = setInterval(intervalFunc, 1000); 
+    
+        // When an answer is chosen
+        let clickCount = 0;
+        choices.addEventListener("click", event => {
+            // only allows you to answer once
+            if(clickCount !== 0) {
+                return; 
+            } else {
+                clickCount++; 
+                // right answer
+                if (event.target.getAttribute("class") === "correct") {
+                    feedbackBox.textContent = "CORRECT! ";
+                    feedbackBox.style.backgroundColor = "#8fd18f"
+                    score ++; 
+                } else {
+                    // stop timer going below 0
+                     if (timeDisplay.textContent > 10) {
+                    timeDisplay.textContent -= 10; 
+                } else {
+                    timeDisplay.textContent = 0; 
+                }
+                feedbackBox.textContent = "";
+                feedbackBox.style.backgroundColor = "#ff9c9c"
+            }
+            
+            // add feedback text, show feedbackbox, pause timer
+                feedbackBox.textContent += feedback; 
+                feedbackBox.removeAttribute("class", "hide"); 
+                clearInterval(interval); 
+    
+                // fiveSecond pause before next Question & restart timer
+                let fiveSeconds = setTimeout(() => {
+                    if (timeDisplay.textContent > 0) {feedbackBox.setAttribute("class", "hide");
+                    newQuestion();
+                    clickCount = 0;
+                    interval = setInterval(intervalFunc, 1000);
+                  } else {
+                    endScreenShow(); 
+                    finalScoreDisplay.textContent = score;
+                  }
+                }, 5000)  
+            }     
+        })
+    }
 
-            // fiveSecond pause before next Question & restart timer
-            let fiveSeconds = setTimeout(() => {
-                if (timeDisplay.textContent > 0) {feedbackBox.setAttribute("class", "hide");
-                newQuestion();
-                clickCount = 0;
-                interval = setInterval(intervalFunc, 1000);
-              } else {
-                endScreenShow(); 
-                finalScoreDisplay.textContent = score;
-              }
-            }, 5000)  
-        }     
-    })
-})
+// START BUTTON, 
+startBtn.addEventListener("click", game); 
+// NEW GAME (endscreen)
+playAgain.addEventListener("click", () => {
+    localScore1 = localStorage.getItem("quizScore1"); 
+    localScore2 = localStorage.getItem("quizScore2"); 
+    localScore3 = localStorage.getItem("quizScore3"); 
+    confirmSubmit.textContent = ""; 
+    game();}); 
 
 // store score and username
 submitScore.addEventListener("click", (event) => {
