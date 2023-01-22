@@ -26,6 +26,15 @@ button {
   transition: background-color 0.1s;
 }
 
+#next-question {
+  background-color: #a293b9;
+  color: black;
+}
+#next-question:hover {
+  background-color: #563d7c;
+  color: white;
+}
+
 button:hover {
   background-color: #8570a5;
 }

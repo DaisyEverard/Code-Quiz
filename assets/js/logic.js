@@ -163,7 +163,7 @@ let game = () => {
         questionScreen.removeAttribute("class", "hide"); 
         
         // Timer initial start
-        timeDisplay.textContent = 15;  
+        timeDisplay.textContent = 90;  
         interval = setInterval(intervalFunc, 1000);
 
         // When an answer is chosen
