@@ -21,10 +21,8 @@ let localScore3 = localStorage.getItem("quizScore3");
 
 renderScores = () => {
     if (!localScore1 && !localScore2 && !localScore3) {
-        console.log("all null")
         HSDisplay.textContent = "No scores found"
     } else {
-        console.log("else" + localScore1 + localScore2 + localScore3)
         if (localScore1) {
             HSDisplay.innerHTML = `<h4>1st Place</h4>
             <p>User: ${JSON.parse(localScore1).user}</p>
