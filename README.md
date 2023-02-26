@@ -1,4 +1,5 @@
 # Code Quiz
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Preview
 
@@ -13,6 +14,15 @@
 
 https://daisyeverard.github.io/Code-Quiz/index.html
 
+## Table of Contents
+
+- [Description](#description)
+- [Usage](#usage)
+- [Technologies](#technologies)
+- [Issues and Solutions](#issues-and-solutions)
+- [Contacts](#contacts)
+
+
 ## Description
 
 This is a quiz with 10 questions about coding. 
@@ -21,11 +31,36 @@ Features:
  - If time runs out, the quiz stops
  - Displays final score on screen
  - stores the top 3 scores locally (if two scores are equal, the most recent takes precendent)
- - Highscores can be viewed and reset with 'View Highscores' link
+ - Highscores can be reset with a button
  - Name can be changed until you leave the submit screen
  - When answer submitted: Timer pauses, feedback and next question button appear.
- - It wrong answer causes time to run out, 'next question' becomes 'end'
+ - Feedback box is red if incorrect, green if correct.
+ - If a wrong answer causes time to run out, 'next question' becomes 'end'
  - 'Play Again' button which refreshes the page. 
+ 
+ ## Usage
+ 
+ Quiz
+ - Click `Start Quiz` to begin
+ - Read the question, then click one of the purple boxes with answers in them
+ - Read the feedback box about the answer to the question. Don't worry! the timer will pause while you review your answer. 
+ - When you are ready, click the `Next Question` box to see the next question. 
+ - If you get a question wrong, 10s will be deducted from the remaining time
+ - At the end, click the `End` button to see your score
+ - Enter your name and click `Submit` to store your score in the highscores
+ 
+ Highscores
+ - To view highscores, click `View Highscores` in the top left
+ - Scroll through the highscores with scrollbar
+ - Click `Clear Highscores` to remove current scores
+ - Click `Go Back` to be taken the the main page
+
+## Technologies
+
+- HTML
+- CSS
+- JavaScript
+- Local Storage / JSON
 
 ## Issues and solutions
 
@@ -46,6 +81,12 @@ Notice you don't use `()` after the `intFun` function name, as this would call i
 Creating a variable using a stored value doesn't get updated with that value, it just takes whatever was stored as its initial value. To reset the display, you need to reset both `localStorage` and the `localScore` variables
 
 `Var1, Var2, Var3 = "";` is not valid syntax, this must be seperated out onto 3 lines. 
+
+## Contacts
+
+- GitHub: [DaisyEverard](https://github.com/DaisyEverard)
+- LinkedIn: [daisy-everard](https://www.linkedin.com/in/daisy-everard/)
+- Email: msdeverard@gmail.com
 
 ## License 
 
